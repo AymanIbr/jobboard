@@ -75,7 +75,7 @@
 
       <ul class="job-listings mb-5">
         <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-          <a href="job-single.html"></a>
+          <a href="{{ route('jobSinglePage') }}"></a>
           <div class="job-listing-logo">
             <img src="{{ asset('Front/images/job_logo_1.jpg') }}" alt="Free Website Template by Free-Template.co" class="img-fluid">
           </div>
