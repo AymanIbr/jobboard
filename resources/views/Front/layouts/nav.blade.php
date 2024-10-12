@@ -13,15 +13,15 @@
 
                 <li><a href="{{ route('contactPage') }}" class="nav-link {{request()->routeIs('contactPage') ? "active" : ""}}">Contact</a></li>
                 <li class="d-lg-none"><a href="{{ route('postJobPage') }}"><span class="mr-2">+</span> Post a Job</a></li>
-                <li class="d-lg-none"><a href="{{ route('loginPage') }}">Log In</a></li>
+                <li class="d-lg-none"><a href="{{ route('web.login') }}">Log In</a></li>
               </ul>
             </nav>
 
             <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
               <div class="ml-auto">
                 <a href="{{ route('postJobPage') }}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-                <a href="{{ route('registerPage') }}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Register</a>
-                <a href="{{ route('loginPage') }}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
+                <a href="{{ route('web.register') }}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Register</a>
+                <a href="{{ route('web.login') }}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
               </div>
               <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
             </div>
