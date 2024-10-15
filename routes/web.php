@@ -35,10 +35,11 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/about', [HomeController::class, 'about'])->name('aboutPage');
 
     Route::get('/job-singel/{slug}', [HomeController::class, 'jobSingel'])->name('jobSinglePage');
-});
-    //  Route::get('/login', [HomeController::class, 'login']);
 
-// Route::post('/jobs/save', [HomeController::class, 'saveJob'])->name('save.job');
+    Route::post('/jobs/save', [HomeController::class, 'saveJob'])->name('save.job');
+
+});
+
 
 
 

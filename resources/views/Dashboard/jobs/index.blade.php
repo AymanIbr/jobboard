@@ -77,7 +77,7 @@
                 })
             }
             function destroy(id,reference){
-                axios.delete('/admin/jobs/'+id)
+                axios.delete('/admin/dashboard/jobs/'+id)
                 .then(function (response) {
                     // handle success
                     //فئة ال200

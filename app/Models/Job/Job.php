@@ -3,6 +3,7 @@
 namespace App\Models\Job;
 
 use App\Models\Category;
+use App\Models\JobSaved;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,5 +49,10 @@ class Job extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function saveJobs()
+    {
+        return $this->hasMany(JobSaved::class, 'job_id');
     }
 }

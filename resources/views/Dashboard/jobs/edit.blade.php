@@ -159,7 +159,7 @@
             formData.append('responsibilities', document.getElementById('responsibilities').value);
             formData.append('education_experience', document.getElementById('education_experience').value);
             formData.append('other_benifits', document.getElementById('other_benifits').value);
-            axios.post('/admin/jobs/' + id, formData)
+            axios.post('/admin/dashboard/jobs/' + id, formData)
                 .then(function(response) {
                     // handle success
                     console.log(response);

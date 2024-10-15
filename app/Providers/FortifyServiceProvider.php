@@ -43,7 +43,7 @@ class FortifyServiceProvider extends ServiceProvider
                     // dd('Ayman');
                     return redirect()->route('HomePage');
                 }
-                return redirect()->view('/');
+                return redirect()->route('indexPage');
             }
         });
 

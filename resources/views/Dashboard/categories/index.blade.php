@@ -79,7 +79,7 @@
                 })
             }
             function destroy(id,reference){
-                axios.delete('/admin/categories/'+id)
+                axios.delete('/admin/dashboard/categories/'+id)
                 .then(function (response) {
                     // handle success
                     //فئة ال200

@@ -52,7 +52,7 @@
     formData.append('name',document.getElementById('name').value);
     formData.append('active',document.getElementById('active').checked ? 1 : 0);
     formData.append('image',document.getElementById('image').files[0]);
-    axios.post('/admin/categories/.',formData)
+    axios.post('/admin/dashboard/categories/.',formData)
   .then(function (response) {
     // handle success
     console.log(response);

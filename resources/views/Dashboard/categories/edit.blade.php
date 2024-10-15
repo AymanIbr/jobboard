@@ -55,7 +55,7 @@
     if(document.getElementById('image').files[0] != undefined ){
         formData.append('image',document.getElementById('image').files[0]);
     }
-    axios.post('/admin/categories/'+id,formData)
+    axios.post('/admin/dashboard/categories/'+id,formData)
   .then(function (response) {
     // handle success
     console.log(response);
