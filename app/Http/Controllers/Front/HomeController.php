@@ -20,14 +20,7 @@ class HomeController extends Controller
     {
         return view('Front.profile');
     }
-    public function login()
-    {
-        return view('Front.login');
-    }
-    public function register()
-    {
-        return view('Front.register');
-    }
+
     public function postJob()
     {
         return view('Front.post-job');
@@ -42,12 +35,17 @@ class HomeController extends Controller
         return view('Front.about');
     }
 
-    public function jobSingel($slug = null)
+    public function jobSingel($slug)
     {
-        if ($slug) {
-            $job = Job::where('slug', $slug)->first();
-            // \dd($job);
-            return view('Front.job-single', compact('job'));
-        }
+
+        $job = Job::where('slug', $slug)->first();
+        $relatedJobs = Job::where('category_id', $job->category_id)
+            ->where('id', '!=', $job->id)
+            ->paginate(5);
+        return view('Front.job-single', compact('job', 'relatedJobs'));
     }
+
+    // public function saveJob(){
+
+    // }
 }
