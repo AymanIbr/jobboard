@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\SingleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,13 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/contact', [HomeController::class, 'contact'])->name('contactPage');
     Route::get('/about', [HomeController::class, 'about'])->name('aboutPage');
 
-    Route::get('/job-singel/{slug}', [HomeController::class, 'jobSingel'])->name('jobSinglePage');
+    Route::get('/job-singel/{slug}', [SingleController::class, 'jobSingel'])->name('jobSinglePage');
 
-    Route::post('/jobs/save', [HomeController::class, 'saveJob'])->name('save.job');
+    Route::post('/jobs/save', [SingleController::class, 'saveJob'])->name('save.job');
+    Route::post('/jobs/apply', [SingleController::class, 'jobApply'])->name('apply.job');
+
+    Route::get('/categories/single/{name}',[SingleController::class,'singleCategory'])->name('categories.single');
+
 
 });
 

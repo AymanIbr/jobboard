@@ -63,17 +63,25 @@
                             <div class="col-6">
                                 <form action="{{ route('save.job') }}" method="POST">
                                     @csrf
-                                    <input name="job_id" type="hidden" value="{{ $job->id }}">
-                                    <input name="user_id" type="hidden" value="{{ Auth::User()->id }}">
-                                    <input name="job_image" type="hidden" value="{{ $job->image }}">
-                                    <input name="job_title" type="hidden" value="{{ $job->job_title }}">
-                                    <input name="job_region" type="hidden" value="{{ $job->job_region }}">
-                                    <input name="job_type" type="hidden" value="{{ $job->job_type }}">
-                                    <input name="company" type="hidden" value="{{ $job->company }}">
-                                    <input name="slug" type="hidden" value="{{ $job->slug }}">
+                                    @php
+                                        $fields = [
+                                            'job_id' => $job->id,
+                                            'user_id' => Auth::user()->id,
+                                            'job_image' => $job->image,
+                                            'job_title' => $job->job_title,
+                                            'job_region' => $job->job_region,
+                                            'job_type' => $job->job_type,
+                                            'company' => $job->company,
+                                            'slug' => $job->slug,
+                                        ];
+                                    @endphp
+                                    @foreach ($fields as $name => $value)
+                                        <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                                    @endforeach
                                     @if ($savedJob > 0)
-                                        <button name="submit" type="submit" class="btn btn-block btn-success btn-md " disabled>
-                                                you saved this job</button>
+                                        <button name="submit" type="submit" class="btn btn-block btn-success btn-md "
+                                            disabled>
+                                            you saved this job</button>
                                     @else
                                         <button name="submit" type="submit" class="btn btn-block btn-light btn-md"><i
                                                 class="icon-heart"></i>Save Job</button>
@@ -82,7 +90,26 @@
                                 <!--add text-danger to it to make it read-->
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-block btn-primary btn-md">Apply Now</button>
+
+                                <form action="{{ route('apply.job') }}" method="POST">
+                                    @csrf
+                                    <input name="job_id" type="hidden" value="{{ $job->id }}">
+                                    <input name="job_image" type="hidden" value="{{ $job->image }}">
+                                    <input name="job_title" type="hidden" value="{{ $job->job_title }}">
+                                    <input name="job_region" type="hidden" value="{{ $job->job_region }}">
+                                    <input name="job_type" type="hidden" value="{{ $job->job_type }}">
+                                    <input name="company" type="hidden" value="{{ $job->company }}">
+                                    <input name="slug" type="hidden" value="{{ $job->slug }}">
+                                    @if ($appliedJob > 0)
+                                        <button name="submit" type="submit" class="btn btn-block btn-success btn-md "
+                                            disabled>
+                                            you applied this job</button>
+                                    @else
+                                        <button name="submit" type="submit" class="btn btn-block btn-primary btn-md">Apply
+                                            Now</button>
+                                    @endif
+                                </form>
+
                             </div>
                         </div>
 
@@ -117,6 +144,20 @@
                                 <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ route('jobSinglePage', $job->id) }}"
                                     class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
                             </div>
+                        </div>
+
+
+                        <div class="bg-light p-3 mt-3 border rounded mb-4">
+                            <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Categories</h3>
+                            <ul class="list-unstyled pl-3 mb-0">
+                                @foreach ($categories as $category)
+                                    <li class="mb-2">
+                                        <a class="text-decoration-none" href="{{ route('categories.single',$category->name) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
 
                     </div>

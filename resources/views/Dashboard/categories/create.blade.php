@@ -17,7 +17,7 @@
       <div class="card-body">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Enter name">
+          <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
         </div>
         <div class="form-group">
             <div class="custom-file">
@@ -47,28 +47,27 @@
 
 <script>
 
-  function store(){
-    let formData = new FormData();
-    formData.append('name',document.getElementById('name').value);
-    formData.append('active',document.getElementById('active').checked ? 1 : 0);
-    formData.append('image',document.getElementById('image').files[0]);
-    axios.post('/admin/dashboard/categories/.',formData)
-  .then(function (response) {
-    // handle success
-    console.log(response);
-    toastr.success(response.data.message);
-    document.getElementById('create-form').reset();
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-    toastr.error(error.response.data.message);
-  })
-  .finally(function () {
-    // always executed
-  });
-  }
+    function store(){
+      let formData = new FormData();
+      formData.append('name',document.getElementById('name').value);
+      formData.append('active',document.getElementById('active').checked ? 1 : 0);
+      formData.append('image',document.getElementById('image').files[0]);
+      axios.post('/admin/dashboard/categories', formData)
+      .then(function (response) {
+      // handle success
+      console.log(response);
+      toastr.success(response.data.message);
+      document.getElementById('create-form').reset();
+    })
+    .catch(function (error) {
+      // handle error
+    //   console.log('Ayman');
+      toastr.error(error.response.data.message);
+    })
+    .finally(function () {
+      // always executed
+    });
+    }
 
-</script>
-
+  </script>
 @endsection

@@ -55,7 +55,7 @@ class CategoryController extends Controller
         } else {
             return response()->json([
                 'message' => $validatore->getMessageBag()->first()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 

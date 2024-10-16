@@ -21,6 +21,7 @@
                       <tr>
                         <th>ID</th>
                         <th>Job Title</th>
+                        <th>Category</th>
                         <th>Image</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -33,6 +34,7 @@
                             <tr>
                                <td>{{$loop->iteration}}</td>
                                <td>{{$job->job_title}}</td>
+                               <td>{{$job->category->name}}</td>
                                <td>
                                    <img class="profile-user-img img-fluid img-circle" height="50" width="50" src="{{Storage::url($job->image)}}" alt="User profile picture">
                                </td>
