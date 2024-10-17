@@ -41,13 +41,8 @@ class SingleController extends Controller
     public function saveJob(Request $request)
     {
         $saveJob = JobSaved::create([
+            'user_id' => Auth::id(),
             'job_id' => $request->job_id,
-            'user_id' => $request->user_id,
-            'job_image' => $request->job_image,
-            'job_title' => $request->job_title,
-            'job_region' => $request->job_region,
-            'job_type' => $request->job_type,
-            'company' => $request->company,
         ]);
         if ($saveJob) {
             return redirect()->route('jobSinglePage', ['slug' => $request->slug])
@@ -57,19 +52,13 @@ class SingleController extends Controller
 
     public function jobApply(Request $request)
     {
-        if ($request->cv == 'No cv') {
+        if (Auth::user()->cv == '') {
             return redirect()->route('jobSinglePage', ['slug' => $request->slug])
-                ->with('success', 'upload you cv first in the profile page!');
+                ->with('error', 'Please upload your CV first on the profile page!');
         } else {
             $applyJob = Application::create([
-                'cv' => Auth::user()->cv,
+                'user_id' => Auth::id(),
                 'job_id' => $request->job_id,
-                'user_id' => Auth::user()->id,
-                'job_image' => $request->job_image,
-                'job_title' => $request->job_title,
-                'job_region' => $request->job_region,
-                'job_type' => $request->job_type,
-                'company' => $request->company,
             ]);
         }
         if ($applyJob) {

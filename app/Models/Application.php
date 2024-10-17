@@ -12,14 +12,18 @@ class Application extends Model
 
     protected $guarded = [];
 
-
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class ,'user_id');
     }
 
     public function job()
     {
         return $this->belongsTo(Job::class, 'job_id');
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->job_type === 'Part Time' ? 'Part time' : 'Full time';
     }
 }

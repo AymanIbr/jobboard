@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Category;
 use App\Models\Job\Job;
 use App\Models\JobSaved;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,10 +21,7 @@ class HomeController extends Controller
 
         return view('Front.index', compact('jobs', 'totalJobs'));
     }
-    public function profile()
-    {
-        return view('Front.profile');
-    }
+
 
     public function postJob()
     {
@@ -38,7 +36,4 @@ class HomeController extends Controller
     {
         return view('Front.about');
     }
-
-   
-
 }

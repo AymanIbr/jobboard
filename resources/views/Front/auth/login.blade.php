@@ -32,7 +32,7 @@
 
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="fname">Email</label>
-                                <input type="text" name="email" id="fname"
+                                <input type="text" value="{{ old('email') }}" name="email" id="fname"
                                     class="form-control @error('email') is-invalid @enderror"
                                     placeholder="Email address">
                                 <div class="invalid-feedback"></div>
@@ -44,7 +44,7 @@
                         <div class="row form-group mb-4">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="fname">Password</label>
-                                <input type="password" name="password" id="fname" class="form-control @error('password') is-invalid @enderror"
+                                <input type="password" value="{{ old('password') }}" name="password" id="fname" class="form-control @error('password') is-invalid @enderror"
                                     placeholder="Password">
                                     <div class="invalid-feedback"></div>
                                     @error('password')

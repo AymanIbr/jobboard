@@ -12,18 +12,36 @@
                             <li><a href="{{ route('aboutPage') }}"
                                     class="nav-link {{ request()->routeIs('aboutPage') ? 'active' : '' }}">About</a></li>
 
-                            <li><a href="{{ route('profilePage') }}"
+                            {{-- <li><a href="{{ route('profilePage') }}"
                                     class="nav-link {{ request()->routeIs('profilePage') ? 'active' : '' }}">Profile</a>
-                            </li>
+                            </li> --}}
 
                             <li><a href="{{ route('contactPage') }}"
                                     class="nav-link {{ request()->routeIs('contactPage') ? 'active' : '' }}">Contact</a>
                             </li>
 
-                            <li class="d-lg-none"><a href="{{ route('postJobPage') }}"><span class="mr-2">+</span> Post a
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::guard('web')->user()->name }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('applications') }}">Applications</a>
+                                    <a class="dropdown-item" href="{{ route('saved.jobs') }}">Saved jobs</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit();">
+                                        <span class="mr-2 icon-lock_outline"></span>Sign Out
+                                    </a>
+                                </div>
+                            </li>
+                            <form action="{{ route('logout') }}" method="POST" id="logout" style="display: none">
+                                @csrf
+                            </form>
+
+                            {{-- <li class="d-lg-none"><a href="{{ route('postJobPage') }}"><span class="mr-2">+</span> Post a
                                     Job</a></li>
 
-                            <li class="d-lg-none"><a href="{{ route('login') }}">Log In</a></li>
+                            <li class="d-lg-none"><a href="{{ route('login') }}">Log In</a></li> --}}
                         </ul>
                     </nav>
                 @endauth
@@ -35,15 +53,7 @@
                             <a href="{{ route('postJobPage') }}"
                                 class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
                                     class="mr-2 icon-add"></span>Post a Job</a>
-                            <a class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                                    class="mr-2 icon-person"></span>{{ Auth::guard('web')->user()->name }}</a>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();document.getElementById('logout').submit()"
-                                class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                                    class="mr-2 icon-lock_outline"></span>Sign Out</a>
-                            <form action="{{ route('logout') }}" method="POST" id="logout" style="display: none">
-                                @csrf
-                            </form>
+
                         @else
                         @if (!request()->routeIs('login'))
                         <a href="{{ route('login') }}"

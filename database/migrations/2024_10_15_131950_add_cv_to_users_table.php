@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('cv')->after('email');
-            $table->string('job_title')->after('cv');
-            $table->string('bio',200)->after('job_title');
-            $table->string('twiter',200)->after('bio');
-            $table->string('facebook',200)->after('twiter');
-            $table->string('linkedin',200)->after('facebook');
+            $table->string('cv')->nullable()->after('email');
+            $table->string('job_title')->nullable()->after('cv');
+            $table->string('bio',200)->nullable()->after('job_title');
+            $table->string('twiter',200)->nullable()->after('bio');
+            $table->string('facebook',200)->nullable()->after('twiter');
+            $table->string('linkedin',200)->nullable()->after('facebook');
         });
     }
 

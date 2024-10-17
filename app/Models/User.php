@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Job\Job;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,6 +50,10 @@ class User extends Authenticatable
         return $this->hasMany(JobSaved::class, 'user_id');
     }
 
+    // public function applications()
+    // {
+    //     return $this->hasMany(Application::class, 'user_id');
+    // }
     public function applications()
     {
         return $this->hasMany(Application::class, 'user_id');

@@ -66,12 +66,6 @@
                                     @php
                                         $fields = [
                                             'job_id' => $job->id,
-                                            'user_id' => Auth::user()->id,
-                                            'job_image' => $job->image,
-                                            'job_title' => $job->job_title,
-                                            'job_region' => $job->job_region,
-                                            'job_type' => $job->job_type,
-                                            'company' => $job->company,
                                             'slug' => $job->slug,
                                         ];
                                     @endphp
@@ -94,12 +88,8 @@
                                 <form action="{{ route('apply.job') }}" method="POST">
                                     @csrf
                                     <input name="job_id" type="hidden" value="{{ $job->id }}">
-                                    <input name="job_image" type="hidden" value="{{ $job->image }}">
-                                    <input name="job_title" type="hidden" value="{{ $job->job_title }}">
-                                    <input name="job_region" type="hidden" value="{{ $job->job_region }}">
-                                    <input name="job_type" type="hidden" value="{{ $job->job_type }}">
-                                    <input name="company" type="hidden" value="{{ $job->company }}">
-                                    <input name="slug" type="hidden" value="{{ $job->slug }}">
+                                    <input type="hidden" name="cv" value="{{ Auth::user()->cv }}">
+                                    <input type="hidden" name="slug" value="{{$job->slug}}">
                                     @if ($appliedJob > 0)
                                         <button name="submit" type="submit" class="btn btn-block btn-success btn-md "
                                             disabled>

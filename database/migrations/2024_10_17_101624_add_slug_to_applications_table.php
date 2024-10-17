@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('applications', function (Blueprint $table) {
-            $table->foreignId('job_id')->constrained()->after('user_id');
+            $table->string('slug')->after('job_title');
         });
     }
 
@@ -22,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('applications', function (Blueprint $table) {
-            $table->dropForeign('applications_job_id_foreign');
-            $table->dropColumn('job_id');
+            $table->dropColumn('slug');
         });
     }
 };
