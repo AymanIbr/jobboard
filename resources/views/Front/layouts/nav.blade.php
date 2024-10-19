@@ -28,6 +28,8 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('applications') }}">Applications</a>
                                     <a class="dropdown-item" href="{{ route('saved.jobs') }}">Saved jobs</a>
+                                    <a class="dropdown-item" href="{{ route('edit.details') }}">update Details</a>
+                                    <a class="dropdown-item" href="{{ route('edit.cv') }}">update CV</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit();">
                                         <span class="mr-2 icon-lock_outline"></span>Sign Out

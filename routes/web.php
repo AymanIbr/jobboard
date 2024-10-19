@@ -47,6 +47,14 @@ Route::middleware('auth:web')->group(function () {
     Route::get('user/applications', [UserController::class, 'applications'])->name('applications');
     Route::get('user/savedjobs', [UserController::class, 'savedJobs'])->name('saved.jobs');
 
+    // update user profile
+    Route::get('user/edit-details', [UserController::class, 'editDetails'])->name('edit.details');
+    Route::patch('user/edit-details', [UserController::class, 'updateDetails'])->name('update.details');
+
+    // update user cv
+
+    Route::get('user/edit-cv',[UserController::class , 'editCV'])->name('edit.cv');
+    Route::patch('user/edit-cv', [UserController::class, 'updateCV'])->name('update.cv');
 
 });
 

@@ -8,6 +8,8 @@ use App\Models\JobSaved;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -27,5 +29,61 @@ class UserController extends Controller
     {
         $savedJobs = JobSaved::with('job')->where('user_id', Auth::user()->id)->get();
         return view('Front.users.savedjobs', compact('savedJobs'));
+    }
+
+    public function editDetails()
+    {
+        $userDetails = User::findOrFail(Auth::user()->id);
+        return view('Front.users.editdetails', compact('userDetails'));
+    }
+
+    public function updateDetails(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'job_title' => 'nullable|string|max:255',
+            'bio' => 'nullable|string',
+            'facebook' => 'nullable|url',
+            'twiter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+        ]);
+
+        $user = $request->user();
+        $user->update($request->only(['name', 'job_title', 'bio', 'facebook', 'twiter', 'linkedin']));
+        return redirect()->route('edit.details')->with('success', 'User details updated successfully!');
+    }
+
+    public function editCV()
+    {
+        $userCV = Auth::user()->cv;
+        return view('Front.users.editcv', compact('userCV'));
+    }
+
+    public function updateCV(Request $request)
+    {
+        $validator = Validator::make($request->only('cv'), [
+            'cv' => 'required|file|max:2048|mimes:pdf,doc,docx',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = Auth::user();
+
+        if ($request->hasFile('cv')) {
+
+            if ($user->cv && Storage::disk('public')->exists($user->cv))
+            {
+                Storage::disk('public')->delete($user->cv);
+            }
+            $ex = $request->file('cv')->getClientOriginalExtension();
+            $cv_name = time() . '_usercv.' . $ex;
+            $request->file('cv')->storePubliclyAs('cvs', $cv_name, ['disk' => 'public']);
+            $user->cv = 'cvs/' . $cv_name;
+        }
+
+        $user->save();
+        return redirect()->route('edit.cv')->with('success', 'User CV updated successfully!'); // إعادة التوجيه مع رسالة النجاح
     }
 }
