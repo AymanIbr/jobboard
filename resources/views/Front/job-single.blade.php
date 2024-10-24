@@ -72,6 +72,7 @@
                                     @foreach ($fields as $name => $value)
                                         <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                                     @endforeach
+                                    @if(isset(Auth::user()->id))
                                     @if ($savedJob > 0)
                                         <button name="submit" type="submit" class="btn btn-block btn-success btn-md "
                                             disabled>
@@ -80,10 +81,13 @@
                                         <button name="submit" type="submit" class="btn btn-block btn-light btn-md"><i
                                                 class="icon-heart"></i>Save Job</button>
                                     @endif
+                                    @endif
+
                                 </form>
                                 <!--add text-danger to it to make it read-->
                             </div>
                             <div class="col-6">
+                                @if(isset(Auth::user()->id))
 
                                 <form action="{{ route('apply.job') }}" method="POST">
                                     @csrf
@@ -98,7 +102,12 @@
                                         <button name="submit" type="submit" class="btn btn-block btn-primary btn-md">Apply
                                             Now</button>
                                     @endif
+
                                 </form>
+                                @else
+                                <a href="{{ route('login') }}" class="btn btn-block btn-info btn-md ">
+                                           Login to  apply for this job</a>
+                                @endif
 
                             </div>
                         </div>

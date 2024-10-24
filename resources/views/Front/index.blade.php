@@ -13,35 +13,43 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate est, consequuntur
                             perferendis.</p>
                     </div>
-                    <form method="post" class="search-jobs-form">
+                    <form method="POST" action="{{ route('search.jobs') }}" class="search-jobs-form">
+                        @csrf
                         <div class="row mb-5">
                             <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                                <input type="text" class="form-control form-control-lg"
+                                <input name="job_title" type="text" class="form-control form-control-lg @error('job_title') is-invalid @enderror"
                                     placeholder="Job title, Company...">
+                                    <div class="invalid-feedback"></div>
+                                    @error('job_title')
+                                        <small class="invalid-feedback">{{ $message }}</small>
+                                    @enderror
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%"
-                                    data-live-search="true" title="Select Region">
-                                    <option>Anywhere</option>
-                                    <option>San Francisco</option>
-                                    <option>Palo Alto</option>
-                                    <option>New York</option>
-                                    <option>Manhattan</option>
-                                    <option>Ontario</option>
-                                    <option>Toronto</option>
-                                    <option>Kansas</option>
-                                    <option>Mountain View</option>
+                                <select name="job_region" class="selectpicker @error('job_region') is-invalid @enderror " data-style="btn-white btn-lg"
+                                    data-width="100%" data-live-search="true" title="Select Region">
+                                    @foreach ($countries as $country)
+                                    <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                    @endforeach
                                 </select>
+                                <div class="invalid-feedback"></div>
+                                @error('job_region')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%"
+                                <select name="job_type" class="selectpicker @error('job_type') is-invalid @enderror" data-style="btn-white btn-lg" data-width="100%"
                                     data-live-search="true" title="Select Job Type">
                                     <option>Part Time</option>
                                     <option>Full Time</option>
                                 </select>
+                                <div class="invalid-feedback"></div>
+                                @error('job_type')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search"><span
+                                <button name="submit" type="submit"
+                                    class="btn btn-primary btn-lg btn-block text-white btn-search"><span
                                         class="icon-search icon mr-2"></span>Search Job</button>
                             </div>
                         </div>
@@ -49,9 +57,9 @@
                             <div class="col-md-12 popular-keywords">
                                 <h3>Trending Keywords:</h3>
                                 <ul class="keywords list-unstyled m-0 p-0">
-                                    <li><a href="#" class="">UI Designer</a></li>
-                                    <li><a href="#" class="">Python</a></li>
-                                    <li><a href="#" class="">Developer</a></li>
+                                    @foreach ( $duplicates as $dublicate )
+                                    <li><a href="#" class="">{{ $dublicate->keyword }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -87,11 +95,11 @@
                 @else
                     @foreach ($jobs as $job)
                         <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                            <a href="{{ route('jobSinglePage',$job->slug) }}"></a>
+                            <a href="{{ route('jobSinglePage', $job->slug) }}"></a>
                             <dd></dd>
                             <div class="job-listing-logo">
-                                <img src="{{Storage::url($job->logo)}}"
-                                    alt="Free Website Template by Free-Template.co" class="img-fluid">
+                                <img src="{{ Storage::url($job->logo) }}" alt="Free Website Template by Free-Template.co"
+                                    class="img-fluid">
                             </div>
 
                             <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">

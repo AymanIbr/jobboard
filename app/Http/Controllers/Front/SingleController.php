@@ -25,17 +25,20 @@ class SingleController extends Controller
         // all categories
         $categories = Category::where('active', true)->get();
 
-        // save job
-        $savedJob = JobSaved::where('job_id', $job->id)
-            ->where('user_id', Auth::user()->id)
-            ->count();
+        if (auth()->user()) {
+            // save job
+            $savedJob = JobSaved::where('job_id', $job->id)
+                ->where('user_id', Auth::user()->id)
+                ->count();
 
-        // verfining if user applied to job
+            // verfining if user applied to job
+            $appliedJob = Application::where('job_id', $job->id)
+                ->where('user_id', Auth::user()->id)->count();
 
-        $appliedJob = Application::where('job_id', $job->id)
-            ->where('user_id', Auth::user()->id)->count();
+            return view('Front.job-single', compact('job', 'relatedJobs', 'savedJob', 'appliedJob', 'categories'));
+        }
 
-        return view('Front.job-single', compact('job', 'relatedJobs', 'savedJob', 'appliedJob', 'categories'));
+        return view('Front.job-single', compact('job', 'relatedJobs', 'categories'));
     }
 
     public function saveJob(Request $request)
@@ -63,7 +66,7 @@ class SingleController extends Controller
         }
         if ($applyJob) {
             return redirect()->route('jobSinglePage', ['slug' => $request->slug])
-                ->with('success', 'Job saved successfully!');
+                ->with('success', 'Job applyed successfully!');
         }
     }
 

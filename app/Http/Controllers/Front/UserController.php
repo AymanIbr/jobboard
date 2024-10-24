@@ -41,11 +41,11 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'job_title' => 'nullable|string|max:255',
-            'bio' => 'nullable|string',
-            'facebook' => 'nullable|url',
-            'twiter' => 'nullable|url',
-            'linkedin' => 'nullable|url',
+            'job_title' => 'required|string|max:255',
+            'bio' => 'required|string',
+            'facebook' => 'required|url|max:150',
+            'twiter' => 'required|url|max:150',
+            'linkedin' => 'required|url|max:150',
         ]);
 
         $user = $request->user();
@@ -84,6 +84,6 @@ class UserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('edit.cv')->with('success', 'User CV updated successfully!'); // إعادة التوجيه مع رسالة النجاح
+        return redirect()->route('edit.cv')->with('success', 'User CV updated successfully!');
     }
 }
